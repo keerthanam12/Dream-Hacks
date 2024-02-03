@@ -1,0 +1,17 @@
+{% extends 'managementsystem/layouts/main.html' %}
+
+{% block title %}
+    Assignments
+{% endblock title %}
+
+{% block content %}
+    <div class="container mt-5">
+        <h2 class="mb-4">Assignments</h2>
+        {% for assignment1 in assignments1 %}
+        <h3>{{ assignment1.name }}</h3>
+        <p>{{ assignment1.description }}</p>
+        <p>Due Date: {{ assignment.due_date }}</p>
+        <a href="{% url 'take_assignment' assignment1.id %}">Take Test</a>
+    {% endfor %}
+    </div>
+{% endblock content %}
