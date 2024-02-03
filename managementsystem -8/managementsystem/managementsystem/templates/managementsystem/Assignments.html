@@ -1,0 +1,52 @@
+{% extends 'managementsystem/layouts/main.html' %}
+
+{% block title %}
+  Assignment Details - {{ assignment.name }}
+{% endblock title %}
+
+{% block content %}
+  {% include 'managementsystem/inc/slider.html' %}
+
+  <div class="container" style="margin-top: 70px;">
+    <div class="row">
+      <div class="col-12">
+        <h1>{{ assignment.name }}</h1>
+        <p>{{ assignment.description }}</p>
+        <p>Due Date: {{ assignment.due_date }}</p>
+
+        {% if not quiz_taken %}
+          <!-- Display "Take Assignment" button -->
+          <button id="take-assignment-btn" class="btn btn-primary">Take Assignment</button>
+
+          <!-- Quiz Questions Container (Initially Hidden) -->
+          <div id="quiz-container" style="display: none;">
+            <!-- Display Quiz Questions -->
+            <form method="post" action="{% url 'submit_quiz' assignment.id %}">
+              {% csrf_token %}
+              {% for question in questions %}
+                <fieldset>
+                  <legend>{{ question.question_text }}</legend>
+                  <label><input type="radio" name="answer_{{ question.id }}" value="A"> {{ question.option_a }}</label><br>
+                  <label><input type="radio" name="answer_{{ question.id }}" value="B"> {{ question.option_b }}</label><br>
+                  <label><input type="radio" name="answer_{{ question.id }}" value="C"> {{ question.option_c }}</label><br>
+                  <label><input type="radio" name="answer_{{ question.id }}" value="D"> {{ question.option_d }}</label><br>
+                </fieldset>
+              {% endfor %}
+              <button type="submit" class="btn btn-success">Submit Quiz</button>
+            </form>
+          </div>
+        {% else %}
+          <p>You have already taken this assignment.</p>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Add JavaScript to show/hide the quiz container
+    document.getElementById('take-assignment-btn').addEventListener('click', function() {
+      document.getElementById('take-assignment-btn').style.display = 'none';
+      document.getElementById('quiz-container').style.display = 'block';
+    });
+  </script>
+{% endblock content %}
