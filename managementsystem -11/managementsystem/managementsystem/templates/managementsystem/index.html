@@ -1,0 +1,116 @@
+
+{% extends 'managementsystem/layouts/main.html' %}
+
+{% block title %}
+  Management System Dashboard
+{% endblock title %}
+
+{% block content %}
+  {% include 'managementsystem/inc/slider.html' %}
+
+  <div class="container-fluid">
+    <div class="row">
+      <!-- Sidebar -->
+      <div class="container-fluid">
+        <div class="row">
+          <!-- Sidebar -->
+          <nav id="sidebar" class="col-md-3 col-lg-2 d-md-block bg-dark fixed-top sidebar">
+            <div class="sidebar-sticky">
+              <ul class="nav flex-column">
+                <!-- Other sidebar items go here -->
+    
+                <!-- Admin Login as Button -->
+                <li class="nav-item">
+                  <button class="btn btn-primary">
+                    <a class="nav-link text-white" href="{% url 'admin:login' %}">
+                      Admin Login
+                    </a>
+                  </button>
+                </li>
+              </ul>
+            </div>
+          </nav>
+      <!-- Main content -->
+      <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
+        <div class="container" style="margin-top: 70px;">
+          <div class="row">
+            <div class="col-12">
+              <h1 class="text-center mb-4">Management System Dashboard</h1>
+            </div>
+          </div>
+
+          <!-- Student Count Boxes -->
+          <div class="row mt-4">
+            <div class="row mt-4">
+                <div class="col-md-3">
+                  <div class="card border-info mb-4">
+                    <div class="card-body text-info">
+                      <h5 class="card-title">Elementary Students</h5>
+                      <p class="card-text h3">{{ elementary_students_count }}</p>
+                    </div>
+                  </div>
+                </div>
+          
+                <div class="col-md-3">
+                  <div class="card border-success mb-4">
+                    <div class="card-body text-success">
+                      <h5 class="card-title">Middle Students</h5>
+                      <p class="card-text h3">{{ middle_students_count }}</p>
+                    </div>
+                  </div>
+                </div>
+          
+                <div class="col-md-3">
+                  <div class="card border-warning mb-4">
+                    <div class="card-body text-warning">
+                      <h5 class="card-title">High Students</h5>
+                      <p class="card-text h3">{{ high_students_count }}</p>
+                    </div>
+                  </div>
+                </div>
+          
+                <div class="col-md-3">
+                  <div class="card border-danger mb-4">
+                    <div class="card-body text-danger">
+                      <h5 class="card-title">BioMath Students</h5>
+                      <p class="card-text h3">{{ bio_math_students_count }}</p>
+                    </div>
+                  </div>
+                </div>
+          
+                <div class="col-md-3">
+                  <div class="card border-primary mb-4">
+                    <div class="card-body text-primary">
+                      <h5 class="card-title">Computer Science Students</h5>
+                      <p class="card-text h3">{{ computer_science_students_count }}</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+          </div>
+
+          <!-- Assignments List Card -->
+          <div class="row mt-4">
+            <div class="col-md-8">
+              <div class="card">
+                <div class="card-body">
+                  <h5 class="card-title">Assignments</h5>
+                  <ul class="list-group">
+                    {% for assignment in assignments %}
+                      <li class="list-group-item">{{ assignment.name }} - Due: {{ assignment.due_date }}</li>
+                    {% endfor %}
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div style="width:100px;height: 50px;">
+
+          </div>
+          <!-- Add more cards or visualizations as needed -->
+
+        </div>
+      </main>
+    </div>
+  </div>
+{% endblock content %}
