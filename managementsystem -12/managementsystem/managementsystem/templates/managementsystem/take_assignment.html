@@ -1,0 +1,44 @@
+{% extends 'managementsystem/layouts/main.html' %}
+
+{% block title %}
+    Take Assignment
+{% endblock title %}
+
+{% block content %}
+    <div class="container mt-5">
+        <h2>{{ assignment1.title }}</h2>
+        <p>{{ assignment1.description }}</p>
+        
+        <!-- Add any other assignment details you want to display -->
+
+        <form action="{% url 'submit_assignment' assignment1.id %}" method="post">
+            {% csrf_token %}
+            {% for question in quiz_questions %}
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ question.question_text }}</h5>
+                        <!-- Add form fields for options and capture student's responses -->
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="question_{{ question.id }}" value="A" required>
+                            <label class="form-check-label" for="option_a">{{ question.option_a }}</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="question_{{ question.id }}" value="B" required>
+                            <label class="form-check-label" for="option_b">{{ question.option_b }}</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="question_{{ question.id }}" value="C" required>
+                            <label class="form-check-label" for="option_c">{{ question.option_c }}</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="question_{{ question.id }}" value="D" required>
+                            <label class="form-check-label" for="option_d">{{ question.option_d }}</label>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+            
+            <button type="submit" class="btn btn-primary">Submit Assignment</button>
+        </form>
+    </div>
+{% endblock content %}

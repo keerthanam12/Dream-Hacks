@@ -1,0 +1,14 @@
+{% extends 'managementsystem/layouts/main.html' %}
+
+{% block title %}
+    Assignments
+{% endblock title %}
+
+{% block content %}
+{% for assignment1 in assignments1 %}
+<li class="list-group-item">
+    {{ assignment1.name }} - Due: {{ assignment1.due_date }}
+    <a href="{% url 'assignment_detail' assignment1.id %}">View Details</a>
+</li>
+{% endfor %}
+{% endblock content %}
